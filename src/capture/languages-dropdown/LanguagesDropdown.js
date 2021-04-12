@@ -10,6 +10,9 @@ export const LanguagesDropdown = (props) => {
         sync();
     }, []);
 
+    // console.log(`==============`);
+    // console.log(Frame());
+
     return (
         <Dropdown
             name={props.name}

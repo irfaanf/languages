@@ -1,12 +1,13 @@
 import { useEasybase } from "easybase-react";
 import React, { useEffect, useState } from "react";
 import {
+    Button,
     Container,
     Dropdown,
     Form,
     Grid,
     Header,
-    Input
+    Input,
 } from "semantic-ui-react";
 import "./CaptureWord.scss";
 import LanguagesDropdown from "./languages-dropdown/LanguagesDropdown";
@@ -139,6 +140,11 @@ export const CaptureWord = () => {
                                 id="synonyms"
                             />
                         </Form.Field>
+                    </Grid.Column>
+
+                    <Grid.Column width="4"></Grid.Column>
+                    <Grid.Column width="8">
+                        <Button type="submit">Add</Button>
                     </Grid.Column>
                 </Grid>
             </Form>
