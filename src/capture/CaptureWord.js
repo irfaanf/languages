@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import {
     Container,
     Dropdown,
+    Flag,
     Form,
     Grid,
     Header,
     Input,
 } from "semantic-ui-react";
+import "./CaptureWord.scss";
+
+const FlagRenderer = (language) => { return <Flag name={language.flag} /> }
 
 export const CaptureWord = () => {
     const [books, setBooks] = useState([]);
@@ -36,19 +40,22 @@ export const CaptureWord = () => {
                 key: 1,
                 text: "AFR",
                 value: "afr",
+                flag: "za"
             },
             {
                 key: 2,
                 text: "TUR",
                 value: "tur",
+                flag: "tr"
             },
             {
                 key: 3,
                 text: "ENG",
                 value: "eng",
+                flag: "gb"
             },
         ]);
-    });
+    }, []);
 
     return (
         <>
@@ -71,6 +78,7 @@ export const CaptureWord = () => {
                                 placeholder="Click to select book ..."
                                 options={books}
                                 selection
+                                className="book-select book-title"
                             />
                         </Form.Field>
                     </Grid.Column>
