@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown, Form, Grid, Input } from "semantic-ui-react";
+import {
+    Container,
+    Dropdown,
+    Form,
+    Grid,
+    Header,
+    Input,
+} from "semantic-ui-react";
 
 export const CaptureWord = () => {
     const [books, setBooks] = useState([]);
@@ -45,7 +52,9 @@ export const CaptureWord = () => {
 
     return (
         <>
-            <h1>Capture Word</h1>
+            <Container>
+                <Header as="h1">Capture Word</Header>
+            </Container>
 
             <Form>
                 <Grid container textAlign="left">

@@ -1,16 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import CaptureWord from './capture/CaptureWord';
-import 'semantic-ui-css/semantic.min.css';
+import "semantic-ui-css/semantic.min.css";
+import "./App.scss";
+import CaptureWord from "./capture/CaptureWord";
 
 function App() {
-  return (
-    <div className="App">
-      
-      <CaptureWord />
-      
-    </div>
-  );
+    return (
+        <div className="App">
+            <CaptureWord />
+        </div>
+    );
 }
 
 export default App;
