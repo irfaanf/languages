@@ -1,63 +1,133 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { Dropdown, Form, Grid, Input } from "semantic-ui-react";
 
 export const CaptureWord = () => {
+    const [books, setBooks] = useState({});
 
+    useEffect(() => {
+      books : {
+        {
+          id = 1,
+          title = ""
+        }
+      }
+    });
+  
     return (
         <>
             <h1>Capture Word</h1>
+            <Form>
+                <Grid container textAlign="left">
+                    <Grid.Column width="4">
+                        <Form.Field>
+                            <label>Book</label>
+                        </Form.Field>
+                    </Grid.Column>
 
-            <div className="ui left aligned grid container">
-                <div className="four wide column">
-                    Book
-                </div>
-                <div className="twelve wide column">
-                    <select name="book-select" id="book-select">
-                        <option value="die-poort">Die poort</option>
-                        <option value="hanna-hoekom">Die ongelooflike avonture van hanna hoekom</option>
-                        <option value="die-vrou">Die vrou op die skuit</option>
-                    </select>
-                </div>
+                    <Grid.Column width="12">
+                        <Form.Field>
+                            <Dropdown
+                                name="book-select"
+                                text="Click to select book ..."
+                            >
+                                <Dropdown.Menu>
+                                    <Dropdown.Item
+                                        value="die-poort"
+                                        text="Die poort"
+                                    />
+                                    <Dropdown.Item
+                                        value="hanna-hoekom"
+                                        text="Die ongelooflike avonture van hanna hoekom"
+                                    />
+                                    <Dropdown.Item
+                                        value="die-vrou"
+                                        text="Die vrou op die skuit"
+                                    />
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Form.Field>
+                    </Grid.Column>
 
-                <div className="four wide column">Page</div>
-                <div className="four wide column"><input type="number" name="page-no" id="page-no"/></div>
-                <div className="four wide column">Line</div>
-                <div className="four wide column"><input type="number" name="line-no" id="page-no"/></div>
+                    {/* <Grid> */}
+                    <Grid.Column width="4">
+                        <Form.Field inline>
+                            <label>Page</label>
+                        </Form.Field>
+                    </Grid.Column>
 
-                <div className="four wide column">
-                    <select name="source-language" id="source-language">
-                    <option value="afr">AFR</option>
-                    <option value="tur">TUR</option>
-                    </select>
-                </div>
-                <div className="twelve wide column">
-                    <input type="text" name="source-word" id="source-word"/>
-                </div>
+                    <Grid.Column width="12">
+                        <Form.Field>
+                            <Input
+                                type="number"
+                                name="page-no"
+                                id="page-no"
+                                placeholder="Page number"
+                            />
+                        </Form.Field>
+                    </Grid.Column>
+                    {/* </Grid> */}
+                    {/* <div className="four wide column">Page</div>
+          <div className="four wide column">
+            <input type="number" name="page-no" id="page-no" />
+          </div>
+          <div className="four wide column">Line</div>
+          <div className="four wide column">
+            <input type="number" name="line-no" id="page-no" />
+          </div> */}
 
-                <div className="four wide column">
-                    <select name="target-language" id="target-language">
-                    <option value="afr">ENG</option>
-                    </select>
-                </div>
-                <div className="twelve wide column">
-                    <input type="text" name="target-word" id="target-word"/>
-                </div>
+                    <Grid.Column width="4">
+                        <Dropdown
+                            name="source-language"
+                            id="source-language"
+                            text="Source language"
+                        >
+                            <Dropdown.Menu>
+                                <Dropdown.Item value="afr" text="AFR" />
+                                <Dropdown.Item value="tur" text="TUR" />
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Grid.Column>
+                    <div className="twelve wide column">
+                        <input
+                            type="text"
+                            name="source-word"
+                            id="source-word"
+                        />
+                    </div>
 
-                <div className="four wide column">
-                    Excerpt
-                </div>
-                <div className="twelve wide column">
-                    <textarea name="excerpt" id="excerpt" cols="30" rows="10"></textarea>
-                </div>
+                    <div className="four wide column">
+                        <select name="target-language" id="target-language">
+                            <Dropdown.Item value="afr">ENG</Dropdown.Item>
+                        </select>
+                    </div>
+                    <div className="twelve wide column">
+                        <input
+                            type="text"
+                            name="target-word"
+                            id="target-word"
+                        />
+                    </div>
 
-                <div className="four wide column">
-                    Synonyms
-                </div>
-                <div className="twelve wide column">
-                    <input type="text" name="synonyms" id="synonyms"/>
-                </div>
-            </div>
+                    <div className="four wide column">Excerpt</div>
+                    <div className="twelve wide column">
+                        <textarea
+                            name="excerpt"
+                            id="excerpt"
+                            cols="30"
+                            rows="10"
+                        ></textarea>
+                    </div>
+
+                    <div className="four wide column">Synonyms</div>
+                    <div className="twelve wide column">
+                        <input type="text" name="synonyms" id="synonyms" />
+                    </div>
+
+                    {/* </div> */}
+                </Grid>
+            </Form>
         </>
     );
-}
+};
 
 export default CaptureWord;
