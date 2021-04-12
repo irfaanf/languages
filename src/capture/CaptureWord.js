@@ -6,57 +6,19 @@ import {
     Form,
     Grid,
     Header,
-    Input,
+    Input
 } from "semantic-ui-react";
 import "./CaptureWord.scss";
+import LanguagesDropdown from "./languages-dropdown/LanguagesDropdown";
 
 export const CaptureWord = () => {
-    const [books, setBooks] = useState([]);
-    const [languages, setLanguages] = useState([]);
+    // const [books, setBooks] = useState([]);
+    // const [languages, setLanguages] = useState([]);
     const { Frame, sync, configureFrame } = useEasybase();
 
     useEffect(() => {
         configureFrame({ tableName: "BOOKS", limit: "10" });
         sync();
-
-        // setBooks([
-        //     {
-        //         key: 1,
-        //         value: "die-poort",
-        //         text: "Die poort",
-        //     },
-        //     {
-        //         key: 2,
-        //         value: "hanna-hoekom",
-        //         text: "Die ongelooflike avonture van hanna hoekom",
-        //     },
-        //     {
-        //         key: 3,
-        //         value: "die-vrou",
-        //         text: "Die vrou op die skuit",
-        //     },
-        // ]);
-
-        setLanguages([
-            {
-                key: 1,
-                text: "AFR",
-                value: "afr",
-                flag: "za",
-            },
-            {
-                key: 2,
-                text: "TUR",
-                value: "tur",
-                flag: "tr",
-            },
-            {
-                key: 3,
-                text: "ENG",
-                value: "eng",
-                flag: "gb",
-            },
-        ]);
     }, []);
 
     return (
@@ -110,12 +72,10 @@ export const CaptureWord = () => {
 
                     <Grid.Column width="4">
                         <Form.Field>
-                            <Dropdown
+                            <LanguagesDropdown
                                 name="source-language"
                                 id="source-language"
-                                placeholder="Source language"
-                                options={languages}
-                                selection
+                                placeholder="Source Language"
                             />
                         </Form.Field>
                     </Grid.Column>
@@ -132,12 +92,10 @@ export const CaptureWord = () => {
 
                     <Grid.Column width="4">
                         <Form.Field>
-                            <Dropdown
+                            <LanguagesDropdown
                                 name="target-language"
                                 id="target-language"
                                 placeholder="Target language"
-                                options={languages}
-                                selection
                             />
                         </Form.Field>
                     </Grid.Column>
