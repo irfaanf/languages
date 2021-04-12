@@ -1,8 +1,8 @@
+import { useEasybase } from "easybase-react";
 import React, { useEffect, useState } from "react";
 import {
     Container,
     Dropdown,
-    Flag,
     Form,
     Grid,
     Header,
@@ -10,49 +10,51 @@ import {
 } from "semantic-ui-react";
 import "./CaptureWord.scss";
 
-const FlagRenderer = (language) => { return <Flag name={language.flag} /> }
-
 export const CaptureWord = () => {
     const [books, setBooks] = useState([]);
     const [languages, setLanguages] = useState([]);
+    const { Frame, sync, configureFrame } = useEasybase();
 
     useEffect(() => {
-        setBooks([
-            {
-                key: 1,
-                value: "die-poort",
-                text: "Die poort",
-            },
-            {
-                key: 2,
-                value: "hanna-hoekom",
-                text: "Die ongelooflike avonture van hanna hoekom",
-            },
-            {
-                key: 3,
-                value: "die-vrou",
-                text: "Die vrou op die skuit",
-            },
-        ]);
+        configureFrame({ tableName: "BOOKS", limit: "10" });
+        sync();
+
+        // setBooks([
+        //     {
+        //         key: 1,
+        //         value: "die-poort",
+        //         text: "Die poort",
+        //     },
+        //     {
+        //         key: 2,
+        //         value: "hanna-hoekom",
+        //         text: "Die ongelooflike avonture van hanna hoekom",
+        //     },
+        //     {
+        //         key: 3,
+        //         value: "die-vrou",
+        //         text: "Die vrou op die skuit",
+        //     },
+        // ]);
 
         setLanguages([
             {
                 key: 1,
                 text: "AFR",
                 value: "afr",
-                flag: "za"
+                flag: "za",
             },
             {
                 key: 2,
                 text: "TUR",
                 value: "tur",
-                flag: "tr"
+                flag: "tr",
             },
             {
                 key: 3,
                 text: "ENG",
                 value: "eng",
-                flag: "gb"
+                flag: "gb",
             },
         ]);
     }, []);
@@ -76,7 +78,13 @@ export const CaptureWord = () => {
                             <Dropdown
                                 name="book-select"
                                 placeholder="Click to select book ..."
-                                options={books}
+                                options={Frame().map((book) => {
+                                    return {
+                                        key: book.id,
+                                        value: book.slug,
+                                        text: book.title,
+                                    };
+                                })}
                                 selection
                                 className="book-select book-title"
                             />
