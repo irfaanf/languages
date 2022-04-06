@@ -1,4 +1,3 @@
-import { useEasybase } from "easybase-react";
 import React, { useEffect, useState } from "react";
 import {
     Button,
@@ -11,16 +10,81 @@ import {
 } from "semantic-ui-react";
 import "./CaptureWord.scss";
 import LanguagesDropdown from "./languages-dropdown/LanguagesDropdown";
+import { createClient } from '@supabase/supabase-js'
 
 export const CaptureWord = () => {
-    // const [books, setBooks] = useState([]);
-    // const [languages, setLanguages] = useState([]);
-    const { Frame, sync, configureFrame } = useEasybase();
+    const [books, setBooks] = useState([]);
+    const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, process.env.REACT_APP_SUPABASE_ANON_KEY)
 
     useEffect(() => {
-        configureFrame({ tableName: "BOOKS", limit: "10" });
-        sync();
+        getBooks();
+
+        // getBooks().then((result) => {
+        //     console.log(`RESULT:  ${JSON.stringify(result)}`);
+        //     setBooks(result);
+        //     console.log(`BOOKS AFTER RESULT:  ${JSON.stringify(books)}`);
+        // });
+
+        // this.books = this.books.bind();
     }, []);
+
+       
+    const getBooks = async () => {
+        let { data } = await supabase
+            .from('books')
+            .select('*')
+
+        // console.log(`STRINGIFY:  ${JSON.stringify(books)}`);
+        // console.log(`RAW:  ${books}`);
+        // console.log(`ARRAY:  ${JSON.stringify(Array.from(books))}`);
+        // console.log(`[0]:  ${JSON.stringify(books[0])}`);
+        // console.log(`[0] CONVERTED:  ${JSON.stringify(convertDataToOption(books[0]))}`);
+        // console.log(`[1] CONVERTED:  ${JSON.stringify(convertDataToOption(books[1]))}`);
+        // console.log(`[2] CONVERTED:  ${JSON.stringify(convertDataToOption(books[2]))}`);
+        // console.log(`TYPEOF:  ${typeof(books)}`);
+
+        setBooks(data);
+
+        return books;
+    }
+
+    const convertDataToOption = (book) => {
+        console.log("CONVERT======");
+
+        let optionBook = {
+            key: book.id,
+            value: book.title,
+            text: book.title
+        }
+        console.log(`OPTIONBOOK:  ${JSON.stringify(optionBook)}`);
+
+        return optionBook;
+    }
+
+    const convertAll = (books) => {
+        let result = [];
+
+        for (let book in books) {
+            result.push(convertDataToOption(book));
+        }
+        return result;
+    }
+
+    // const countries = [
+    //     { id: 1, title: 'AFG', slug: 'someslug' },
+    //     { id: 2, title: 'GBR', slug: 'anotherslug' },
+    // ]
+    const countryOptions = [
+        { key: 'af', value: 'af', text: 'Afghanistan' },
+        { key: 'ax', value: 'ax', text: 'Aland Islands' },
+    ]
+
+    const booksConverted = convertAll(books);
+    console.log(`ISARRAY booksConverted:  ${Array.isArray(booksConverted)}`);
+    console.log(`ISARRAY countryOptions:  ${Array.isArray(countryOptions)}`);
+
+    console.log(`BOOKS CONVERTED:  ${JSON.stringify(booksConverted)}`)
+    console.log(`COUNTRY OPTIONS:  ${JSON.stringify(countryOptions)}`)
 
     return (
         <>
@@ -41,13 +105,25 @@ export const CaptureWord = () => {
                             <Dropdown
                                 name="book-select"
                                 placeholder="Click to select book ..."
-                                options={Frame().map((book) => {
-                                    return {
-                                        key: book.id,
-                                        value: book.slug,
-                                        text: book.title,
-                                    };
-                                })}
+                                options={booksConverted}
+                                // options={(books) => {
+                                //     console.log(`INSIDE`)
+                                //     if (!books) {
+                                //         console.log(`EMPTY`)
+                                //     } else {
+                                //         console.log(`FULL`)
+                                //         for (let b of books) {
+                                //             convertDataToOption(b)
+                                //         }
+                                //     }
+                                // }}
+                                // options={(Array.from(books)).map((b) => {
+                                //     return {
+                                //         key: b.id,
+                                //         value: b.title,
+                                //         text: b.title
+                                //     }
+                                // })}
                                 selection
                                 className="book-select book-title"
                             />
