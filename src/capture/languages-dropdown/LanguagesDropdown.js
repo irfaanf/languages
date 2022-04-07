@@ -1,49 +1,39 @@
-import { useEasybase } from "easybase-react";
-import { useEffect } from "react";
-import { Dropdown } from "semantic-ui-react";
 import { createClient } from "@supabase/supabase-js";
+import { useEffect, useState } from "react";
+import { Dropdown } from "semantic-ui-react";
 
 export const LanguagesDropdown = (props) => {
-    const supabaseUrl = "https://xqqqxepmfmrliwoarfhw.supabase.co";
-    const supabaseKey =
-        `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
-            .eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxODIzOTM5NywiZXhwIjoxOTMzODE1Mzk3fQ
-            .BokX8gTUYM9ZSnrOwfSwcGlbsj1oMWjX1xXZPfdJQ4Y`; //process.env.SUPABASE_KEY;
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
-    const { Frame, sync, configureFrame } = useEasybase();
+    const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, process.env.REACT_APP_SUPABASE_ANON_KEY);
+    const [languages, setLanguages] = useState([]);
 
     useEffect(() => {
-        configureFrame({ tableName: "LANGUAGES", limit: "10" });
-        sync();
+        getAllLanguages();
     }, []);
 
     const getAllLanguages = async () => {
-        let { data: languages, error } = await supabase
+        let { data } = await supabase
             .from("languages")
             .select("*");
+
+        setLanguages(convertLanguages(data));
     };
 
-    // console.log(`==============`);
-    // console.log(Frame());
-
-    // console.log(`?????????????`);
-    // console.log(data);
+    const convertLanguages = (languageRows) => {
+        return languageRows.map((language) => {
+            return {
+                key: language.id,
+                value: language["display-text"],
+                text: language["display-text"]
+            };
+        });
+    };
 
     return (
         <Dropdown
             name={props.name}
             id={props.id}
             placeholder={props.placeholder}
-            options={Frame().map((language) => {
-                console.log(language.id);
-                return {
-                    key: language.id,
-                    text: language["display-text"],
-                    value: language["short-code"],
-                    flag: language["flag-code"],
-                };
-            })}
+            options={languages}
             selection
         />
     );
