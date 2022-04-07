@@ -25,36 +25,26 @@ export const CaptureWord = () => {
             .from('books')
             .select('*');
 
+            console.log(`GETBOOKS`);
         setBookOptions(convertAll(data));
     };
 
     const convertAll = (books) => {
         let result = [];
-
-        for (let book in books) {
+        console.log(`books before :  ${JSON.stringify(books)}`);
+        
+        result = books.map((book) => {
             let optionBook = {
                 key: book.id,
                 value: book.title,
                 text: book.title
             };
+            
+            return optionBook;
+        });
+        console.log(`result after:  ${JSON.stringify(result)}`);
 
-            result.push(optionBook);
-        }
-
-        console.log(`result:  ${JSON.stringify(result)}`);
         return result;
-
-        // books.map((book) => {
-        //     let optionBook = {
-        //         key: book.id,
-        //         value: book.title,
-        //         text: book.title
-        //     };
-
-        //     return optionBook;
-        // });
-
-        // return books;
     };
 
     const dummyOptions = [
@@ -62,8 +52,6 @@ export const CaptureWord = () => {
         { key: 2, value: "Die Ongelooflike Avonture van Hanna Hoekom", text: "Die Ongelooflike Avonture van Hanna Hoekom" },
         { key: 3, value: "Die Vrou op die Skuit", text: "Die Vrou op die Skuit" }
     ]
-
-    console.log(React.version);
 
     return (
         <>
