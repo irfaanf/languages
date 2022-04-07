@@ -1,45 +1,17 @@
-import { createClient } from '@supabase/supabase-js';
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
     Button,
     Container,
-    Dropdown,
     Form,
     Grid,
     Header,
     Input
 } from "semantic-ui-react";
+import { BookDropdown } from "./book-dropdown/BookDropdown";
 import "./CaptureWord.scss";
 import LanguagesDropdown from "./languages-dropdown/LanguagesDropdown";
 
 export const CaptureWord = () => {
-    const [bookOptions, setBookOptions] = useState([]);
-
-    useEffect(() => {
-        getBooks();
-    }, []);
-
-    const getBooks = async () => {
-        const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, process.env.REACT_APP_SUPABASE_ANON_KEY);
-        let { data } = await supabase
-            .from('books')
-            .select('*');
-
-        setBookOptions(convertAll(data));
-    };
-
-    const convertAll = (books) => {
-        return books.map((book) => {
-            let optionBook = {
-                key: book.id,
-                value: book.title,
-                text: book.title
-            };
-
-            return optionBook;
-        });
-    };
-
     return (
         <>
             <Container>
@@ -56,11 +28,9 @@ export const CaptureWord = () => {
 
                     <Grid.Column width="12">
                         <Form.Field>
-                            <Dropdown
+                            <BookDropdown
                                 name="book-select"
                                 placeholder="Click to select book ..."
-                                options={bookOptions}
-                                selection
                                 className="book-select book-title"
                             />
                         </Form.Field>
