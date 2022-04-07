@@ -1,3 +1,4 @@
+import { createClient } from '@supabase/supabase-js';
 import React, { useEffect, useState } from "react";
 import {
     Button,
@@ -6,11 +7,10 @@ import {
     Form,
     Grid,
     Header,
-    Input,
+    Input
 } from "semantic-ui-react";
 import "./CaptureWord.scss";
 import LanguagesDropdown from "./languages-dropdown/LanguagesDropdown";
-import { createClient } from '@supabase/supabase-js'
 
 export const CaptureWord = () => {
     const [bookOptions, setBookOptions] = useState([]);
@@ -25,33 +25,20 @@ export const CaptureWord = () => {
             .from('books')
             .select('*');
 
-            console.log(`GETBOOKS`);
         setBookOptions(convertAll(data));
     };
 
     const convertAll = (books) => {
-        let result = [];
-        console.log(`books before :  ${JSON.stringify(books)}`);
-        
-        result = books.map((book) => {
+        return books.map((book) => {
             let optionBook = {
                 key: book.id,
                 value: book.title,
                 text: book.title
             };
-            
+
             return optionBook;
         });
-        console.log(`result after:  ${JSON.stringify(result)}`);
-
-        return result;
     };
-
-    const dummyOptions = [
-        { key: 1, value: "Die Poort", text: "Die Poort" },
-        { key: 2, value: "Die Ongelooflike Avonture van Hanna Hoekom", text: "Die Ongelooflike Avonture van Hanna Hoekom" },
-        { key: 3, value: "Die Vrou op die Skuit", text: "Die Vrou op die Skuit" }
-    ]
 
     return (
         <>
@@ -61,11 +48,11 @@ export const CaptureWord = () => {
 
             <Form>
                 <Grid container textAlign="left">
-                    {/* <Grid.Column width="4">
+                    <Grid.Column width="4">
                         <Form.Field>
                             <label>Book</label>
                         </Form.Field>
-                    </Grid.Column> */}
+                    </Grid.Column>
 
                     <Grid.Column width="12">
                         <Form.Field>
@@ -74,13 +61,12 @@ export const CaptureWord = () => {
                                 placeholder="Click to select book ..."
                                 options={bookOptions}
                                 selection
-                                fluid
                                 className="book-select book-title"
                             />
                         </Form.Field>
                     </Grid.Column>
 
-                    {/* <Grid.Column width="4">
+                    <Grid.Column width="4">
                         <Form.Field inline>
                             <label>Page</label>
                         </Form.Field>
@@ -103,6 +89,7 @@ export const CaptureWord = () => {
                                 name="source-language"
                                 id="source-language"
                                 placeholder="Source Language"
+                                selection
                             />
                         </Form.Field>
                     </Grid.Column>
@@ -171,7 +158,7 @@ export const CaptureWord = () => {
                     <Grid.Column width="4"></Grid.Column>
                     <Grid.Column width="8">
                         <Button type="submit">Add</Button>
-                    </Grid.Column> */}
+                    </Grid.Column>
                 </Grid>
             </Form>
         </>
