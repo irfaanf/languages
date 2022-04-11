@@ -1,4 +1,5 @@
-import React from "react";
+import { createClient } from '@supabase/supabase-js';
+import React, { useState } from "react";
 import {
     Button,
     Container,
@@ -12,13 +13,46 @@ import "./CaptureWord.scss";
 import LanguagesDropdown from "./languages-dropdown/LanguagesDropdown";
 
 export const CaptureWord = () => {
+    const supabase = createClient(process.env.REACT_APP_SUPABASE_URL, process.env.REACT_APP_SUPABASE_ANON_KEY);
+    const [bookId, setBookId] = useState();
+    const [sourceWord, setSourceWord] = useState();
+    const [sourceLanguageId, setSourceLanguageId] = useState();
+    const [targetWord, setTargetWord] = useState();
+    const [targetLanguageId, setTargetLanguageId] = useState();
+
+    const handleChangeBookId = (event) => {
+        setBookId(event.target.value);
+    };
+    
+    const handleChangeSourceWord = (event) => {
+        setSourceWord(event.target.value);
+    };
+
+    const handleSubmit = () => {
+        return captureWord();
+    }
+
+    const captureWord = async () => {
+        const { data } = await supabase
+            .from('words')
+            .insert([
+                {
+                    book_id: bookId,
+                    source_word: sourceWord,
+                    source_language_id: sourceLanguageId,
+                    target_word: targetWord,
+                    target_language_id: targetLanguageId
+                }
+            ]);
+    }
+
     return (
         <>
             <Container>
                 <Header as="h1">Capture Word</Header>
             </Container>
 
-            <Form>
+            <Form onSubmit={handleSubmit()}>
                 <Grid container textAlign="left">
                     <Grid.Column width="4">
                         <Form.Field>
@@ -32,6 +66,7 @@ export const CaptureWord = () => {
                                 name="book-select"
                                 placeholder="Click to select book ..."
                                 className="book-select book-title"
+                                onChange={handleChangeBookId}
                             />
                         </Form.Field>
                     </Grid.Column>
