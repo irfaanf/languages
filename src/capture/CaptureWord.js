@@ -20,13 +20,26 @@ export const CaptureWord = () => {
     const [targetWord, setTargetWord] = useState();
     const [targetLanguageId, setTargetLanguageId] = useState();
 
-    const handleChangeBookId = (event) => {
-        setBookId(event.target.value);
+    const handleChangeBookId = (value) => {
+        alert(value);
+        setBookId(value);
     };
-    
+
     const handleChangeSourceWord = (event) => {
         setSourceWord(event.target.value);
     };
+
+    const handleChangeSourceLanguageId = (event) => {
+        setSourceLanguageId(event.target.value);
+    };
+
+    const handleChangeTargetLanguage = (event) => {
+        setTargetLanguageId(event.target.value);
+    };
+
+    const handleChangeTargetWord = (event) => {
+        setTargetWord(event.target.value);
+    }
 
     const handleSubmit = () => {
         return captureWord();
@@ -52,7 +65,7 @@ export const CaptureWord = () => {
                 <Header as="h1">Capture Word</Header>
             </Container>
 
-            <Form onSubmit={handleSubmit()}>
+            <Form onSubmit={handleSubmit}>
                 <Grid container textAlign="left">
                     <Grid.Column width="4">
                         <Form.Field>
@@ -63,10 +76,7 @@ export const CaptureWord = () => {
                     <Grid.Column width="12">
                         <Form.Field>
                             <BookDropdown
-                                name="book-select"
-                                placeholder="Click to select book ..."
-                                className="book-select book-title"
-                                onChange={handleChangeBookId}
+                                onChange={(value) => handleChangeBookId(value)}
                             />
                         </Form.Field>
                     </Grid.Column>
@@ -95,6 +105,7 @@ export const CaptureWord = () => {
                                 id="source-language"
                                 placeholder="Source Language"
                                 selection
+                                onChange={handleChangeSourceLanguageId}
                             />
                         </Form.Field>
                     </Grid.Column>
@@ -105,6 +116,7 @@ export const CaptureWord = () => {
                                 type="text"
                                 name="source-word"
                                 id="source-word"
+                                onChange={handleChangeSourceWord}
                             />
                         </Form.Field>
                     </Grid.Column>
@@ -115,6 +127,7 @@ export const CaptureWord = () => {
                                 name="target-language"
                                 id="target-language"
                                 placeholder="Target language"
+                                onChange={handleChangeTargetLanguage}
                             />
                         </Form.Field>
                     </Grid.Column>
@@ -123,8 +136,9 @@ export const CaptureWord = () => {
                         <Form.Field>
                             <Form.Input
                                 type="text"
-                                name="source-word"
-                                id="source-word"
+                                name="target-word"
+                                id="target-word"
+                                onChange={handleChangeTargetWord}
                             />
                         </Form.Field>
                     </Grid.Column>

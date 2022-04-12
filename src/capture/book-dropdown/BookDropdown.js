@@ -4,6 +4,7 @@ import { Dropdown } from "semantic-ui-react";
 
 export const BookDropdown = (props) => {
     const [bookOptions, setBookOptions] = useState([]);
+    const [selectedBookId, setSelectedBookId] = useState();
 
     useEffect(() => {
         getBooks();
@@ -37,6 +38,8 @@ export const BookDropdown = (props) => {
             options={bookOptions}
             selection
             className="book-select book-title"
+            onChange={(event) => props.onChange(event.target.value)}
+            // value={selectedBookId}
         />
     )
 }
