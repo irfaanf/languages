@@ -5,7 +5,7 @@ import CaptureWord from "./capture/CaptureWord";
 function App() {
     return (
         <div className="App">
-                <CaptureWord />
+            <CaptureWord />
         </div>
     );
 }
