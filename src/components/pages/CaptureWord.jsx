@@ -55,6 +55,16 @@ export const CaptureWord = () => {
                     <TextArea />
                 </div>
                 <div className="col-span-6 flex"></div>
+
+                <div className="col-span-1"></div>
+                <div className="col-span-1 flex items-center">
+                    <button
+                        type="button"
+                        className="bg-cyan-200 py-2 px-8 rounded"
+                    >
+                        Capture
+                    </button>
+                </div>
             </div>
         </div>
     );
