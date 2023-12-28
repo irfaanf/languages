@@ -1,13 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import { Dropdown } from './components/atoms/Dropdown/Dropdown';
+import { CaptureWord } from './components/pages/CaptureWord';
 
 function App() {
-  return (
-    <div className="App">
-      <Dropdown />
-    </div>
-  );
+    return (
+        <div className="App">
+            <CaptureWord />
+        </div>
+    );
 }
 
 export default App;
