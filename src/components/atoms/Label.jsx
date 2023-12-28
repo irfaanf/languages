@@ -1,3 +1,3 @@
-export const Label = () => {
-    return <div>Some Label</div>;
+export const Label = ({ children }) => {
+    return <div>{children}</div>;
 };
